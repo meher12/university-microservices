@@ -12,13 +12,13 @@ import org.springframework.web.client.RestTemplate;
 
 import lombok.AllArgsConstructor;
 import net.spboot.guru.university.model.Student;
+import net.spboot.guru.university.model.StudentInfo;
 import net.spboot.guru.university.repository.StudentRepository;
 import net.spboot.guru.university.request.Address;
 import net.spboot.guru.university.request.StudentRequest;
 
 @Service
 @AllArgsConstructor
-
 public class StudentServicer {
 
     @Autowired
@@ -41,5 +41,13 @@ public class StudentServicer {
         uriVaraibles.put("zipCode", student.getZipCode());
         
         restTemplate.getForEntity("http://localhost:8281/api/v1/address/{personId}/{zipCode}", Address.class, uriVaraibles);
+    }
+    
+    public StudentInfo getDetailStudent(Long id){
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with id " + id));
+        
+       Address address =  restTemplate.getForObject("http://localhost:8281/api/v1/address/{personId}", Address.class, id);
+        return new StudentInfo(student, address);
     }
 }

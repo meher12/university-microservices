@@ -9,10 +9,12 @@ import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Address {
 
     @Id
@@ -23,6 +25,13 @@ public class Address {
     private String personId;
     private String city;
     private String zipCode;
+    
+    
+    public Address(String personId, String city, String zipCode) {
+        this.personId = personId;
+        this.city = city;
+        this.zipCode = zipCode;
+    }
     
     
 
