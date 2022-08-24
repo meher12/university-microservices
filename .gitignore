@@ -32,6 +32,7 @@ buildNumber.properties
 */.settings/  
 */bin/  
 */target/
+*/.git
  
 ### Maven ###
 */target/
