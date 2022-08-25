@@ -4,6 +4,7 @@
 3. Create RestTemplate in StudentService class to call Address Service for Save Address by zipCode of Student
 4. Configuration of Spring cloud Config Server, Config Client , @RefreshScop
 5. Get Student detail address from Address service
+6. Replace RestTemplate by FeignClient
 
 
 

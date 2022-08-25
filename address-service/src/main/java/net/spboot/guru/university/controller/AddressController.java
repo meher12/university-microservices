@@ -12,7 +12,7 @@ import net.spboot.guru.university.model.Address;
 import net.spboot.guru.university.service.AddressService;
 
 @RestController
-@RequestMapping("api/v1/address/")
+@RequestMapping("/api/v1/address/")
 @AllArgsConstructor
 @RefreshScope
 public class AddressController {
