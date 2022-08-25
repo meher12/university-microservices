@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import net.spboot.guru.university.request.Address;
 
-@FeignClient(name="address-service", url="http://localhost:8281/api/v1/address")
+@FeignClient(name="ADDRESS-SERVICE" /*, url="localhost:8283/api/v1/address"*/)
 public interface AddressFeignClientService {
     
-    @GetMapping("/{personId}/{zipCode}")
+    @GetMapping("/api/v1/address/{personId}/{zipCode}")
     public Address registerAddress(@PathVariable("personId") String personId, @PathVariable("zipCode") String zipCode);
     
-    @GetMapping("/{personId}/")
+    @GetMapping("/api/v1/address/{personId}/")
     public Address getAddressBypersonId(@PathVariable("personId") String personI);
 
 }
