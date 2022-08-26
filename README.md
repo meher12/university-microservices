@@ -27,11 +27,12 @@ http://localhost:8765/api/v1/students/1
 ```
 http://localhost:8765/student/402
 ```
-*Code source:
+* Code source:
 ```
  .route(p -> p.path("/student/**")
                 .filters(f -> f.rewritePath("/student/(?<segment>.*)", "/api/v1/students/${segment}"))
                 .uri("lb://student-service/"))
 ```
+9. Implementing Spring Cloud Gateway Logging Filter
 
 
