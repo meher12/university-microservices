@@ -45,7 +45,7 @@ public class StudentServicer {
         uriVaraibles.put("personId", String.valueOf(student.getId()));
         uriVaraibles.put("zipCode", student.getZipCode());
         
-        //restTemplate.getForEntity("http://localhost:8281/api/v1/address/{personId}/{zipCode}", Address.class, uriVaraibles);
+        //restTemplate.getForEntity("http://localhost:8281/api/address/{personId}/{zipCode}", Address.class, uriVaraibles);
         addressProxy.registerAddress(String.valueOf(student.getId()), student.getZipCode());
     }
     
