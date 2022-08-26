@@ -23,11 +23,11 @@ http://localhost:8765/student-service/api/v1/students/2
 ```
 http://localhost:8765/api/v1/students/1
 ```
-Filter path :
+* Filter path :
 ```
 http://localhost:8765/student/402
 ```
-Code source:
+*Code source:
 ```
  .route(p -> p.path("/student/**")
                 .filters(f -> f.rewritePath("/student/(?<segment>.*)", "/api/v1/students/${segment}"))
