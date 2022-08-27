@@ -28,6 +28,7 @@ public class ApiGateWayConfiguration {
         // To create a specific filter path :
         /*
         .route(p -> p.path("/student/**")
+        // this url student/(?<segment>.*) sreplace  /api/v1/students/${segment}
                 .filters(f -> f.rewritePath("/student/(?<segment>.*)", "/api/v1/students/${segment}"))
                 .uri("lb://student-service/"))
          */
