@@ -56,4 +56,14 @@ resilience4j.ratelimiter.instances.default.limit-refresh-period=10s
 ```
 * Playing with Bulkhead
 
+11. Create Docker image for each service:
+```
+ <configuration>
+ <image>
+    <name>${project.name}:${project.version}</name>
+  </image>
+ <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+</configuration>
+```
+
 
