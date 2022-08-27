@@ -35,7 +35,25 @@ http://localhost:8765/student/402
 ```
 9.  Implementing Spring Cloud Gateway Logging Filter
 10. Fault Tolerance & Circuit Breaker with Resilience4j:
- * Add the Spring Boot 2 Starter of Resilience4j:  boot:spring-boot-starter-actuator spring-boot-starter-aop
- * Play with retry and fallbachMethod
+ * Add the Spring Boot 3 Starter of Resilience4j: \ boot:spring-boot-starter-actuator \ spring-boot-starter-aop  \ resilience4j-spring-boot2  \
+ * Play with retry and fallbackMethod
+ * Paying with CircuitBreacker: 
+ ```
+ resilience4j.circuitbreaker.instances.default.failureRateThreshold=90
+ ```
+ ```
+curl http://localhost:8281/testapi
+fallback-response
+watch curl http://localhost:8281/testapi
+watch -n 0.1 curl http://localhost:8281/testapi
+```
+* Playing with RateLimiter:
+```
+# 2 request
+resilience4j.ratelimiter.instances.default.limit-for-period=2
+# each 10s
+resilience4j.ratelimiter.instances.default.limit-refresh-period=10s 
+```
+* Playing with Bulkhead
 
 
