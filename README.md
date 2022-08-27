@@ -33,6 +33,9 @@ http://localhost:8765/student/402
                 .filters(f -> f.rewritePath("/student/(?<segment>.*)", "/api/v1/students/${segment}"))
                 .uri("lb://student-service/"))
 ```
-9. Implementing Spring Cloud Gateway Logging Filter
+9.  Implementing Spring Cloud Gateway Logging Filter
+10. Fault Tolerance & Circuit Breaker with Resilience4j:
+ * Add the Spring Boot 2 Starter of Resilience4j:  boot:spring-boot-starter-actuator spring-boot-starter-aop
+ * Play with retry and fallbachMethod
 
 
