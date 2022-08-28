@@ -1,6 +1,107 @@
 services:
-  postgres:
-    container_name: postgres
+
+  student-service:
+    image: student-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8181:8181"
+    depends_on:
+      - config-server
+      - discovery-service
+      - db
+      
+      
+      # - rabbitmq
+    environment: 
+       
+        - spring.config.import=optional:configserver:http://config-server:8888/
+        # add profile:
+        - spring.profiles.active:dev
+        - spring.cloud.config.profile:dev
+        # RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+        # SPRING_RABBITMQ_HOST: rabbitmq
+        # SPRING_ZIPKIN_SENDER_TYPE: rabbit
+    networks:
+      - university-network
+
+ 
+  address-service:
+    image: address-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8281:8281"
+    depends_on:
+      - config-server
+      - discovery-service
+      - db
+      
+      
+      # - rabbitmq
+    environment:
+        - spring.config.import=optional:configserver:http://config-server:8888/
+        # add profile:
+        - spring.profiles.active:dev
+        - pring.cloud.config.profile:dev
+
+        # RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+        # SPRING_RABBITMQ_HOST: rabbitmq
+        # SPRING_ZIPKIN_SENDER_TYPE: rabbit
+    networks:
+      - university-network
+
+  api-gateway:
+    image: api-gateway:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    depends_on:
+      - config-server
+      
+    # restart: on-failure
+      
+      # - rabbitmq
+    environment: 
+        - spring.config.import=optional:configserver:http://config-server:8888/
+        # add profile:
+        - spring.profiles.active:dev
+        - spring.cloud.config.profile:dev
+
+      #  RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      #  SPRING_RABBITMQ_HOST: rabbitmq
+      #  SPRING_ZIPKIN_SENDER_TYPE: rabbit
+    networks:
+      - university-network
+
+  discovery-service:
+    image:  discovery-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    depends_on:
+      - config-server
+    ports:
+      - "8761:8761"
+
+    environment: 
+       - spring.config.import=optional:configserver:http://config-server:8888/
+       # add profile:
+       - spring.profiles.active:dev
+       - spring.cloud.config.profile:dev  
+    networks:
+      - university-network
+  
+  config-server:
+    image: config-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8888:8888"
+    # restart: on-failure
+    environment:
+      - spring.cloud.config.server.git.uri:https://github.com/meher12/config-server-git-repo.git/
+      # - spring.cloud.config.server.git.timeout:4
+    networks:
+      - university-network  
+
+  db:
+    # container_name: postgres
     image: postgres
     environment:
       POSTGRES_USER: meherguru
@@ -11,11 +112,11 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      - university-network
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin
+    # container_name: pgadmin
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
@@ -26,12 +127,25 @@ services:
     ports:
       - "5050:80"
     networks:
-      - postgres
+      - university-network
     restart: unless-stopped
 
+  zipkin-server:
+    image: openzipkin/zipkin:latest
+    mem_limit: 300m
+    ports:
+      - "9411:9411"
+    # environment:
+    #   RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+    # depends_on:
+    #   - rabbitmq
+    networks:
+      - university-network
+    restart: always #Restart if there is a problem starting up
+
 networks:
-  postgres:
-    driver: bridge
+  university-network:
+    # driver: bridge
 
 volumes:
   postgres:

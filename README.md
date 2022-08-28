@@ -65,5 +65,6 @@ resilience4j.ratelimiter.instances.default.limit-refresh-period=10s
  <pullPolicy>IF_NOT_PRESENT</pullPolicy>
 </configuration>
 ```
+12. Create a docker-compose file for all microservice and zipkin tracing system
 
 
