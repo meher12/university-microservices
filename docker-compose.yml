@@ -9,11 +9,8 @@ services:
       - config-server
       - discovery-service
       - db
-      
-      
       # - rabbitmq
     environment: 
-       
         - spring.config.import=optional:configserver:http://config-server:8888/
         # add profile:
         - spring.profiles.active:dev
@@ -34,8 +31,6 @@ services:
       - config-server
       - discovery-service
       - db
-      
-      
       # - rabbitmq
     environment:
         - spring.config.import=optional:configserver:http://config-server:8888/
